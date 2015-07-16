@@ -1,0 +1,5 @@
+#!/bin/bash
+mac="$1"
+
+echo "Turning on computer with MAC Address: $mac"
+wakeonlan $mac

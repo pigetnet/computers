@@ -1,0 +1,7 @@
+#!/bin/bash
+description "We will install all we need to turn on/off any computers"
+installer samba-common-bin
+installer ethtool
+installer sshpass
+installer wakeonlan
+
