@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ $# -eq 1 ] && [[ $1 != "--help" ]];then
+	mac="$1"
+	/show/listecho "Turn on $mac" $OK
+	wakeonlan $mac
+else
+	/show/messagebox "/do/computers/on"
+	/show/usageDescription "Turn on a computer with wakeonlan"
+	/show/usage "/do/computers/on MACADDRESS"
+	/show/example "/do/computers/on 12:A1:F2:12:12:12"
+fi

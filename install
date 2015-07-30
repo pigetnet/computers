@@ -1,0 +1,7 @@
+#!/bin/bash
+/show/description "Computers on/off : Install prerequistes"
+/system/install samba-common-bin
+/system/install ethtool
+/system/install sshpass
+/system/install wakeonlan
+

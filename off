@@ -1,0 +1,31 @@
+#!/bin/bash
+if [ $# -eq 1 ] && [[ $1 == "--help" ]];then
+	/show/messagebox "/do/computers/off"
+	/show/usageDescription "Turn off a computer (some configurations is needed on the computer)"
+	/show/usage "/do/computers/off COMPUTER_TYPE IP PASSWORD (computers_type 1:Windows 2:Linux)"
+	/show/example "/do/computers/off 1 192.168.0.42 batteryStapleHorse"
+else
+	if [ $# -eq 3 ];then
+		computer_type="$1"
+		ip="$2"
+		password="$3"
+		username="shutdown"
+		timebefore="1"
+		/show/description "Computer : Turn off  --> $ip"
+	
+		if  [[ $computer_type == "1" ]]
+			then
+				/show/listecho "Type: Windows" $OK
+				/show/listecho "Sending windows requests" $OK
+				net rpc shutdown -I $ip -C "Remote Shutdown" -t $timebefore -U "$username%$password";
+				echo $?
+		fi
+
+		if [[ $computer_type == "2" ]]
+			then
+				echo "Type:Linux"
+				echo "Sending ssh shutdown requests on $ip"
+				sshpass -p $password ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no shutdown@$ip
+		fi
+	fi
+fi
