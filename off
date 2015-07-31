@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ $# -eq 1 ] && [[ $1 == "--help" ]];then
+if [ $# -eq 1 ] && [[ $1 == "--help" ]] || [ $# -eq 0 ];then
 	/show/messagebox "/do/computers/off"
 	/show/usageDescription "Turn off a computer (some configurations is needed on the computer)"
 	/show/usage "/do/computers/off COMPUTER_TYPE IP PASSWORD (computers_type 1:Windows 2:Linux)"
