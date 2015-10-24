@@ -1,0 +1,12 @@
+#!/bin/bash
+/system/install supervisor
+cat <<\EOF > /etc/supervisor/conf.d/computers.conf
+[program:computers]
+command=/do/computers/check
+autostart=true
+autorestart=true
+stdout_logfile=/var/log/computers.log
+redirect_stderr=true
+EOF
+supervisorctl reread
+supervisorctl update

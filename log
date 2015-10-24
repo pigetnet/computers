@@ -1,0 +1,8 @@
+#!/bin/bash
+/show/description "computers Status"
+/show/listecho  "PRESS [CTRL-C] to quit" $WARN
+/show/listecho "Supervisor status" $OK
+supervisorctl status computers
+/show/description "computers log" $OK
+tail -f /var/log/computers.log
+

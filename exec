@@ -1,0 +1,6 @@
+#!/bin/bash
+username=$1
+password=$2
+command=$3
+
+sshpass -p $password ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $username $command
