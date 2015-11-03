@@ -43,10 +43,10 @@ try:
             if(result):
                 data = state["ip"]
                 if state["state"]:
-                    State.checkComputers(ip, actions, 1)
+                    State.checkComputers(state["ip"], actions, 1)
                     state = "on"
                 else:
-                    State.checkComputers(ip, actions, 1)
+                    State.checkComputers(state["ip"], actions, 0)
                     state = "off"
                 print "SENDING-----"
                 print "IP:" + data + " " + state
