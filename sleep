@@ -1,0 +1,22 @@
+#!/bin/bash
+if [ $# -eq 1 ] && [[ $1 == "--help" ]] || [ $# -eq 0 ];then
+	/show/messagebox "/do/computers/sleep"
+	/show/usageDescription "Put a computer to sleep mode (need restShudown on the computers"
+	/show/usage "/do/computers/sleep COMPUTER_TYPE IP TOKEN (computers_type 1:Windows)"
+	/show/example "/do/computers/sleep 1 192.168.0.42 batteryStapleHorse"
+else
+	if [ $# -eq 3 ];then
+		computer_type="$1"
+		ip="$2"
+		token="$3"
+		/show/description "Computer : Sleep  --> $ip"
+		if  [[ $computer_type == "1" ]]
+			then
+				/show/listecho "Type: Windows" $OK
+				/show/listecho "Sending windows requests" $OK
+				curl "http://$ip:31400/sleep/$token"
+				echo $password
+				echo $?
+		fi
+	fi
+fi

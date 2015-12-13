@@ -1,4 +1,5 @@
 #!/bin/bash
+/show/description "Install a service to check computers state"
 /system/install supervisor
 cat <<\EOF > /etc/supervisor/conf.d/computers.conf
 [program:computers]

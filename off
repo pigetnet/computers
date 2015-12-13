@@ -17,7 +17,7 @@ else
 			then
 				/show/listecho "Type: Windows" $OK
 				/show/listecho "Sending windows requests" $OK
-				net rpc shutdown -I $ip -C "Remote Shutdown" -t $timebefore -U "$username%$password";
+				curl "http://$ip:31400/shutdown/$password"
 				echo $?
 		fi
 

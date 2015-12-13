@@ -1,0 +1,56 @@
+#!/bin/bash
+#http://www.linuxquestions.org/questions/programming-9/bash-check-if-a-program-is-running-329962/
+isRunning=0
+if pidof -x $(basename $0) > /dev/null; then
+  for p in $(pidof -x $(basename $0)); do
+    if [ $p -ne $$ ]; then
+      echo "Script $0 is already running: exiting"
+      isRunning=1
+   fi
+  done
+fi
+
+if [[ $isRunning -eq 0 ]];then
+	if [ $# -eq 1 ] && [[ $1 == "--help" ]] || [ $# -eq 0 ];then
+		/show/messagebox "/do/computers/radioOff"
+		/show/usageDescription "Turn off a computer and his radio outlets (need radio plugin)"
+		/show/usage "/do/computers/radioOff COMPUTER_TYPE IP PASSWORD radioOffCode (computers_type 1:Windows 2:Linux)"
+		/show/example "/do/computers/radiooff 1 192.168.0.42 batteryStapleHorse /radio/new/1234/1/off"
+	else
+		if [ $# -eq 4 ];then
+			computer_type="$1"
+			ip="$2"
+			password="$3"
+			radiocode="$4"
+
+			/do/computers/off $1 $2 $3
+
+
+			# We wait for 10 minutes
+			/show/listecho "We wait 10 minutes"
+			sleep 1m
+			/show/listecho "8 minutes left"
+			#sleep 2m
+			/show/listecho "6 minutes left"
+			#sleep 2m
+			/show/listecho "4 minutes left"
+			#sleep 2m
+			/show/listecho "2 minutes left"
+			#sleep 2m
+			/show/listecho "Check computer state"
+
+			ping -c10 $ip
+			isConnected=$?
+			# If the computer is disconnected we shut it down
+			if [[ $isConnected -eq 0 ]];then
+				echo "Still connected abort"
+			else
+				echo "Computer is disconnected we assume it is off"
+				echo "Sending $radiocode"
+				/do/radio/send $radiocode
+			fi
+		fi
+	fi
+else
+	echo "Process already running"
+fi
